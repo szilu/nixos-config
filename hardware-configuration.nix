@@ -8,31 +8,37 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
+    { device = "/dev/disk/by-uuid/08fbab7d-b33a-4d09-9e48-eb5aada631bb";
       fsType = "btrfs";
-      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-root" ];
+      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=root" ];
+    };
+
+  fileSystems."/var" =
+    { device = "/dev/disk/by-uuid/08fbab7d-b33a-4d09-9e48-eb5aada631bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=var" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
+    { device = "/dev/disk/by-uuid/08fbab7d-b33a-4d09-9e48-eb5aada631bb";
       fsType = "btrfs";
-      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-nix" ];
+      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
-      fsType = "btrfs";
-      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=@home" ];
+    { device = "/dev/main/home";
+      fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/8620-32A3";
+    { device = "/dev/disk/by-uuid/7094-2597";
       fsType = "vfat";
     };
 
@@ -43,9 +49,28 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware = {
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      #powerManagement.finegrained = true;
+      nvidiaSettings = true;
+    };
+    opengl = {
+      enable = true;
+      driSupport = true;
+    };
+  };
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
+  services.xserver.videoDrivers = ["nvidia"];
 }
