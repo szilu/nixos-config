@@ -13,6 +13,7 @@ in {
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
+			./cachix.nix
 		];
 
 	# Use the systemd-boot EFI boot loader.
@@ -20,7 +21,6 @@ in {
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	networking = {
-		hostName = "harmony";
 		networkmanager.enable = true;
 	};
 
@@ -57,15 +57,33 @@ in {
 	services.dbus.enable = true;
 
 	services.printing.enable = true;
+	services.teamviewer.enable = true;
 
 	services.xserver = {
 		enable = true;
 		libinput.enable = true;
-		displayManager = {
-			sddm.enable = true;
-			autoLogin.enable = true;
-			autoLogin.user = "szilu";
+		#displayManager = {
+		#	sddm.enable = true;
+		#	autoLogin.enable = true;
+		#	autoLogin.user = "szilu";
+		#};
+	};
+
+	services.greetd = {
+		enable = true;
+		settings = rec {
+			initial_session = {
+				command = "${unstable.hyprland}/bin/Hyprland";
+				#command = "${pkgs.hyprland}/bin/Hyprland";
+				user = "szilu";
+			};
+			default_session = initial_session;
 		};
+	};
+
+	hardware.bluetooth = {
+		enable = true;
+		powerOnBoot = true;
 	};
 
 	services.pipewire = {
@@ -117,12 +135,13 @@ in {
 	#in {
 	environment.systemPackages = with pkgs; [
 		android-studio
-		blender
 		blueman
 		borgbackup
 		brave
 		brightnessctl
+		cachix
 		compsize
+		darktable
 		#unstable.corepack
 		nodePackages.pnpm
 		dmenu
@@ -145,10 +164,12 @@ in {
 		mpv
 		neovim
 		networkmanager_dmenu
+		nix-index
 		nodejs_20
 		pamixer
 		pciutils
 		skypeforlinux
+		thunderbird
 		usbutils
 		vimPlugins.codeium-vim
 		wlogout
@@ -156,7 +177,7 @@ in {
 		unstable.waybar
 		wget
 		unstable.xdg-desktop-portal-hyprland
-	];
+	] ++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
 	fonts.fontDir.enable = true;
 	# NixOS unstable
@@ -193,22 +214,6 @@ in {
 	# networking.firewall.allowedUDPPorts = [ ... ];
 
 	system.stateVersion = "23.05"; # Did you read the comment?
-
-	systemd.services.battery-charge-threshold = {
-		enable = true;
-		description = "Set the battery charge threshold";
-		after = [ "multi-user.target" ];
-		unitConfig = {
-			After = "multi-user.target";
-			StartLimitBurst = 0;
-		};
-		serviceConfig = {
-			Type = "oneshot";
-			Restart = "on-failure";
-			ExecStart = "/bin/sh -c 'echo 90 >/sys/class/power_supply/BAT0/charge_control_end_threshold'";
-		};
-		wantedBy = [ "multi-user.target" ];
-	};
 
 }
 
