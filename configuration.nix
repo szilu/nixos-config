@@ -55,6 +55,7 @@ in {
 	nixpkgs.config = { allowUnfree = true; };
 
 	services.dbus.enable = true;
+	services.rsyslogd.enable = true;
 
 	services.printing.enable = true;
 	services.teamviewer.enable = true;
@@ -113,6 +114,7 @@ in {
 		vimAlias = true;
 	};
 
+	programs.sway.enable = true;
 	programs.hyprland = {
 		enable = true;
 		xwayland.enable = true;
@@ -169,6 +171,7 @@ in {
 		pamixer
 		pciutils
 		skypeforlinux
+		swaylock
 		thunderbird
 		usbutils
 		vimPlugins.codeium-vim
