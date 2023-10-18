@@ -44,6 +44,13 @@
       fsType = "vfat";
     };
 
+  # NFS automount
+  fileSystems."/nfs/nas" =
+    { device = "nas.zev.szilu.symbion:/data";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "x-systemd.idle-timeout=300" "noauto" ];
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
