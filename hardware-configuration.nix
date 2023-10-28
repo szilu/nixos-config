@@ -33,6 +33,18 @@
       options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix" ];
     };
 
+  fileSystems."/mnt/media" =
+    { device = "/dev/disk/by-uuid/08fbab7d-b33a-4d09-9e48-eb5aada631bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=media" ];
+    };
+
+  fileSystems."/mnt/btrfs" =
+    { device = "/dev/disk/by-uuid/08fbab7d-b33a-4d09-9e48-eb5aada631bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd,ssd,noatime,space_cache=v2" ];
+    };
+
   fileSystems."/home" =
     { device = "/dev/main/home";
       fsType = "ext4";

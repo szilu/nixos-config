@@ -5,9 +5,9 @@
 { config, pkgs, ... }: let
 	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 	flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-	hyprland = (import flake-compat {
-		src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-	}).defaultNix;
+	#hyprland = (import flake-compat {
+	#	src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
+	#}).defaultNix;
 
 in {
 	imports =
@@ -34,7 +34,7 @@ in {
 
 	users.users.szilu = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "sudo" ];
+		extraGroups = [ "wheel" "sudo" "docker" ];
 		#packages = with pkgs; [
 		#	firefox
 		#	tree
@@ -43,8 +43,8 @@ in {
 
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
-		substituters = ["https://hyprland.cachix.org"];
-		trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+		#substituters = ["https://hyprland.cachix.org"];
+		#trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
 		auto-optimise-store = true;
 		#packageOverrides = pkgs: {
 		#	unstable = import <nixos-unstable> {
@@ -52,10 +52,15 @@ in {
 		#	};
 		#};
 	};
-	nixpkgs.config = { allowUnfree = true; };
+	nixpkgs.config = {
+		allowUnfree = true;
+		permittedInsecurePackages = [ "electron-24.8.6" ];
+	};
 
 	services.dbus.enable = true;
 	services.rsyslogd.enable = true;
+	services.flatpak.enable = true;
+	services.gnome.gnome-keyring.enable = true;
 
 	services.printing.enable = true;
 	services.teamviewer.enable = true;
@@ -74,8 +79,8 @@ in {
 		enable = true;
 		settings = rec {
 			initial_session = {
-				command = "${unstable.hyprland}/bin/Hyprland";
-				#command = "${pkgs.hyprland}/bin/Hyprland";
+				#command = "${unstable.hyprland}/bin/Hyprland";
+				command = "${pkgs.hyprland}/bin/Hyprland";
 				user = "szilu";
 			};
 			default_session = initial_session;
@@ -99,10 +104,17 @@ in {
 		enable = true;
 	};
 
+	services.gvfs.enable = true;
+
 	services.locate = {
 		enable = true;
 		locate = pkgs.mlocate;
 		localuser = null;
+	};
+
+	virtualisation.docker = {
+		enable = true;
+		storageDriver = "btrfs";
 	};
 
 	programs.nix-ld.enable = true;
@@ -118,11 +130,16 @@ in {
 	programs.hyprland = {
 		enable = true;
 		xwayland.enable = true;
+		#package = unstable.hyprland;
+		enableNvidiaPatches = true;
 	};
 	xdg.portal = {
 		enable = true;
-		extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-		#extraPortals = [ unstable.xdg-desktop-portal-hyprland ];
+		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+		#extraPortals = [ unstable.xdg-desktop-portal-hyprland unstable.xdg-desktop-portal-gtk ];
+		#extraPortals = [ unstable.xdg-desktop-portal-gtk ];
+		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 	};
 
 	programs.thunar = {
@@ -142,22 +159,30 @@ in {
 		brave
 		brightnessctl
 		cachix
+		chromium
 		compsize
+		cura
 		darktable
+		dig
+		dunst
 		#unstable.corepack
 		nodePackages.pnpm
 		dmenu
+		docker
 		file
 		firefox-wayland
 		gcc
+		geeqie
 		gimp
 		git
-		google-chrome
+		#google-chrome
 		gparted
 		hunspellDicts.hu_HU
-		unstable.hyprland
-		unstable.hyprpaper
+		#unstable.hyprland
+		#unstable.hyprpaper
+		hyprpaper
 		inkscape
+		kicad-small
 		killall
 		kitty
 		libnotify
@@ -168,19 +193,25 @@ in {
 		networkmanager_dmenu
 		nix-index
 		nodejs_20
+		openssl
 		pamixer
 		pciutils
-		skypeforlinux
+		#skypeforlinux
 		swaylock
 		thunderbird
+		transmission-remote-gtk
 		usbutils
 		vimPlugins.codeium-vim
+		vlc
 		wlogout
 		wofi
-		unstable.waybar
+		#unstable.waybar
+		waybar
 		wget
-		unstable.xdg-desktop-portal-hyprland
-	] ++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
+		#unstable.xdg-desktop-portal-hyprland
+		#unstable.xdg-desktop-portal-gtk
+	] ++ (if config.networking.hostName == "fanny" then [] else [blender]);
+	#] ++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
 	fonts.fontDir.enable = true;
 	# NixOS unstable
