@@ -3,7 +3,7 @@
 
 	inputs = {
 		#nixpkgs.url = "nixpkgs/nixos-23.11";
-		nixpkgs.url = "nixpkgs/unstable";
+		nixpkgs.url = "nixpkgs/nixos-unstable";
 		nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 	};
 
@@ -19,7 +19,7 @@
 
 			};
 		in {
-			nixosConfigurations."<hostname>" = nixpkgs.lib.nixosSystem {
+			nixosConfigurations.fanny = nixpkgs.lib.nixosSystem {
 				inherit system;
 				modules = [
 					({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })

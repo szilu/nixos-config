@@ -13,7 +13,7 @@ in {
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
-			./cachix.nix
+			#./cachix.nix
 		];
 
 	# Use the systemd-boot EFI boot loader.
@@ -80,7 +80,8 @@ in {
 		settings = rec {
 			initial_session = {
 				#command = "${unstable.hyprland}/bin/Hyprland";
-				command = "${pkgs.hyprland}/bin/Hyprland";
+				#command = "${pkgs.hyprland}/bin/Hyprland";
+				command = "/run/current-system/sw/bin/Hyprland";
 				user = "szilu";
 			};
 			default_session = initial_session;
@@ -108,7 +109,7 @@ in {
 
 	services.locate = {
 		enable = true;
-		locate = pkgs.mlocate;
+		package = pkgs.mlocate;
 		localuser = null;
 	};
 
@@ -217,7 +218,7 @@ in {
 	# NixOS unstable
 	#fonts.packages = with pkgs; [
 	# NixOS 23.05
-	fonts.fonts = with pkgs; [
+	fonts.packages = with pkgs; [
 		liberation_ttf
 		#nerdfonts
 		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
