@@ -12,7 +12,7 @@
 in {
 	imports =
 		[ # Include the results of the hardware scan.
-			./hardware-configuration-harmony.nix
+			./hardware-configuration-fanny.nix
 			#./cachix.nix
 		];
 
@@ -68,17 +68,25 @@ in {
 	services.xserver = {
 		enable = true;
 		libinput.enable = true;
-	};
 
-	services.greetd = {
-		enable = true;
-		settings = rec {
-			initial_session = {
-				#command = "${unstable.hyprland}/bin/Hyprland";
-				command = "${pkgs.hyprland}/bin/Hyprland";
-				user = "szilu";
-			};
-			default_session = initial_session;
+		# I3 config
+		displayManager = {
+			sddm.enable = true;
+			autoLogin.enable = true;
+			autoLogin.user = "szilu";
+		};
+		windowManager.i3 = {
+			enable = true;
+			#package = pkgs.i3-rounded;
+			extraPackages = with pkgs; [
+				feh
+				i3status
+				i3lock
+				i3blocks
+				picom
+				rofi
+				xtitle
+			];
 		};
 	};
 	xdg.portal = {
@@ -166,6 +174,7 @@ in {
 	environment.systemPackages = with pkgs; [
 		#android-studio
 		blueman
+		blender.override { cudaSupport = true; }
 		borgbackup
 		brave
 		brightnessctl
@@ -225,6 +234,8 @@ in {
 		waybar
 		wget
 		#unstable.xdg-desktop-portal-hyprland
+	]
+	#++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
 	fonts.fontDir.enable = true;
 	# NixOS unstable
