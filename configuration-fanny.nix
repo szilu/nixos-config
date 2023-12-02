@@ -12,7 +12,7 @@
 in {
 	imports =
 		[ # Include the results of the hardware scan.
-			./hardware-configuration.nix
+			./hardware-configuration-fanny.nix
 			#./cachix.nix
 		];
 
@@ -68,25 +68,48 @@ in {
 	services.xserver = {
 		enable = true;
 		libinput.enable = true;
-		#displayManager = {
-		#	sddm.enable = true;
-		#	autoLogin.enable = true;
-		#	autoLogin.user = "szilu";
-		#};
-	};
 
-	services.greetd = {
-		enable = true;
-		settings = rec {
-			initial_session = {
-				#command = "${unstable.hyprland}/bin/Hyprland";
-				#command = "${pkgs.hyprland}/bin/Hyprland";
-				command = "/run/current-system/sw/bin/Hyprland";
-				user = "szilu";
-			};
-			default_session = initial_session;
+		# I3 config
+		displayManager = {
+			sddm.enable = true;
+			autoLogin.enable = true;
+			autoLogin.user = "szilu";
+		};
+		windowManager.i3 = {
+			enable = true;
+			#package = pkgs.i3-rounded;
+			extraPackages = with pkgs; [
+				feh
+				i3status
+				i3lock
+				i3blocks
+				picom
+				rofi
+				xtitle
+			];
 		};
 	};
+	xdg.portal = {
+		enable = true;
+		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+		#extraPortals = [ unstable.xdg-desktop-portal-hyprland unstable.xdg-desktop-portal-gtk ];
+		#extraPortals = [ unstable.xdg-desktop-portal-gtk ];
+		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+	};
+
+	# services.greetd = {
+	# 	enable = true;
+	# 	settings = rec {
+	# 		initial_session = {
+	# 			#command = "${unstable.hyprland}/bin/Hyprland";
+	# 			#command = "${pkgs.hyprland}/bin/Hyprland";
+	# 			command = "/run/current-system/sw/bin/Hyprland";
+	# 			user = "szilu";
+	# 		};
+	# 		default_session = initial_session;
+	# 	};
+	# };
 
 	hardware.bluetooth = {
 		enable = true;
@@ -116,7 +139,10 @@ in {
 	virtualisation.docker = {
 		enable = true;
 		storageDriver = "btrfs";
+		enableNvidia = true;
 	};
+	virtualisation.virtualbox.host.enable = true;
+	users.extraGroups.vboxusers.members = [ "szilu" ];
 
 	programs.nix-ld.enable = true;
 
@@ -134,14 +160,6 @@ in {
 		#package = unstable.hyprland;
 		enableNvidiaPatches = true;
 	};
-	xdg.portal = {
-		enable = true;
-		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-		#extraPortals = [ unstable.xdg-desktop-portal-hyprland unstable.xdg-desktop-portal-gtk ];
-		#extraPortals = [ unstable.xdg-desktop-portal-gtk ];
-		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-	};
 
 	programs.thunar = {
 		enable = true;
@@ -154,7 +172,7 @@ in {
 	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 	#in {
 	environment.systemPackages = with pkgs; [
-		android-studio
+		#android-studio
 		blueman
 		borgbackup
 		brave
@@ -164,12 +182,14 @@ in {
 		compsize
 		cura
 		darktable
+		dash
 		dig
 		dunst
 		#unstable.corepack
 		nodePackages.pnpm
 		dmenu
 		docker
+		evince
 		file
 		firefox-wayland
 		gcc
@@ -183,17 +203,20 @@ in {
 		#unstable.hyprpaper
 		hyprpaper
 		inkscape
+		jre_minimal
 		kicad-small
 		killall
 		kitty
 		libnotify
 		libreoffice
+		lm_sensors
 		logseq
 		mpv
 		neovim
 		networkmanager_dmenu
 		nix-index
 		nodejs_20
+		nvidia-docker
 		openssl
 		pamixer
 		pciutils
@@ -201,6 +224,7 @@ in {
 		swaylock
 		thunderbird
 		transmission-remote-gtk
+		unzip
 		usbutils
 		vimPlugins.codeium-vim
 		vlc
