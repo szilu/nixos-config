@@ -3,17 +3,17 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 
 { config, pkgs, ... }: let
-	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+	#unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 	flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-	hyprland = (import flake-compat {
-		src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-	}).defaultNix;
+	#hyprland = (import flake-compat {
+	#	src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
+	#}).defaultNix;
 
 in {
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
-			./cachix.nix
+			#./cachix.nix
 		];
 
 	# Use the systemd-boot EFI boot loader.
@@ -74,8 +74,8 @@ in {
 		enable = true;
 		settings = rec {
 			initial_session = {
-				command = "${unstable.hyprland}/bin/Hyprland";
-				#command = "${pkgs.hyprland}/bin/Hyprland";
+				#command = "${unstable.hyprland}/bin/Hyprland";
+				command = "${pkgs.hyprland}/bin/Hyprland";
 				user = "szilu";
 			};
 			default_session = initial_session;
@@ -152,11 +152,11 @@ in {
 		gcc
 		gimp
 		git
-		google-chrome
 		gparted
 		hunspellDicts.hu_HU
-		unstable.hyprland
-		unstable.hyprpaper
+		#unstable.hyprland
+		#unstable.hyprpaper
+		hyprpaper
 		inkscape
 		killall
 		kitty
@@ -177,9 +177,10 @@ in {
 		vimPlugins.codeium-vim
 		wlogout
 		wofi
-		unstable.waybar
+		#unstable.waybar
+		waybar
 		wget
-		unstable.xdg-desktop-portal-hyprland
+		#unstable.xdg-desktop-portal-hyprland
 	] ++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
 	fonts.fontDir.enable = true;
