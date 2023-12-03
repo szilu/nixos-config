@@ -51,14 +51,22 @@
 		brightnessctl
 		dmenu
 		dunst
+		grim
 		libnotify
 		hyprpaper
 		networkmanager_dmenu
 		pamixer
+		polkit_gnome
+		slurp
+		swaybg
+		swayidle
 		swaylock
-		wlogout
-		wofi
 		waybar
+		wl-clipboard
+		wlogout
+		wlr-randr
+		wofi
+		wtype
 	];
 }
 
