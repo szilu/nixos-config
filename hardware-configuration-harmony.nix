@@ -10,33 +10,29 @@
 
 	networking.hostName = "harmony";
 
-	boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
-	boot.initrd.kernelModules = [ ];
-	boot.kernelModules = [ "kvm-intel" ];
-	boot.extraModulePackages = [ ];
+	boot = {
+		boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
+		boot.initrd.kernelModules = [ ];
+		boot.kernelModules = [ "kvm-intel" ];
+		boot.extraModulePackages = [ ];
+	};
 
-	fileSystems."/" =
-		{ device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
-			fsType = "btrfs";
-			options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-root" ];
-		};
-
-	fileSystems."/nix" =
-		{ device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
-			fsType = "btrfs";
-			options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-nix" ];
-		};
-
-	fileSystems."/home" =
-		{ device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
-			fsType = "btrfs";
-			options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=@home" ];
-		};
-
-	fileSystems."/boot" =
-		{ device = "/dev/disk/by-uuid/8620-32A3";
-			fsType = "vfat";
-		};
+	fileSystems = {
+		"/" = { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
+				fsType = "btrfs";
+				options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-root" ];
+			};
+		"/nix" = { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
+				fsType = "btrfs";
+				options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=nix-nix" ];
+			};
+		"/home" = { device = "/dev/disk/by-uuid/15d0b22e-decb-4c41-b844-a0f6df0330a2";
+				fsType = "btrfs";
+				options = [ "compress=zstd,ssd,noatime,space_cache=v2,subvol=@home" ];
+			};
+		"/boot" = { device = "/dev/disk/by-uuid/8620-32A3";
+				fsType = "vfat";
+			};
 
 	swapDevices = [ ];
 
@@ -50,6 +46,17 @@
 	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 	powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 	hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+	hardware = {
+		bluetooth = {
+			enable = true;
+			powerOnBoot = true;
+		};
+		opengl = {
+			enable = true;
+			driSupport = true;
+		};
+	};
 
 	# Power management
 	services.system76-scheduler.settings.cfsProfiles.enable = true;
