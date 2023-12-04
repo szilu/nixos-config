@@ -16,6 +16,7 @@
 
 	programs = {
 		nix-ld.enable = true;
+		ecryptfs.enable = true;
 
 		neovim = {
 			enable = true;
@@ -37,6 +38,7 @@
 		dash
 		dig
 		docker
+		ecryptfs
 		file
 		gcc
 		git
