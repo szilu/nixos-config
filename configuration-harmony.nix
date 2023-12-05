@@ -66,6 +66,8 @@ in {
 		};
 	};
 
+	services.greetd.settings.initial_session.user = "szilu";
+
 	#let
 	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 	#in {

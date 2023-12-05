@@ -11,10 +11,10 @@
 	networking.hostName = "harmony";
 
 	boot = {
-		boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
-		boot.initrd.kernelModules = [ ];
-		boot.kernelModules = [ "kvm-intel" ];
-		boot.extraModulePackages = [ ];
+		initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
+		initrd.kernelModules = [ ];
+		kernelModules = [ "kvm-intel" ];
+		extraModulePackages = [ ];
 	};
 
 	fileSystems = {
@@ -33,6 +33,7 @@
 		"/boot" = { device = "/dev/disk/by-uuid/8620-32A3";
 				fsType = "vfat";
 			};
+	};
 
 	swapDevices = [ ];
 
@@ -90,4 +91,5 @@
 		wantedBy = [ "multi-user.target" ];
 	};
 }
+
 # vim: ts=4
