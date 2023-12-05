@@ -12,6 +12,8 @@
 			enable = true;
 			settings.X11Forwarding = true;
 		};
+
+		logrotate.enable = true;
 	};
 
 	programs = {
