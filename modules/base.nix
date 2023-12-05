@@ -13,7 +13,17 @@
 			settings.X11Forwarding = true;
 		};
 
-		logrotate.enable = true;
+		logrotate = {
+			enable = true;
+			settings = {
+				header.compress = true;
+				syslog = {
+					files = ["/var/log/messages" "/var/log/warn"];
+					frequency = "weekly";
+					rotate = 5;
+				};
+			};
+		};
 	};
 
 	programs = {
@@ -34,6 +44,7 @@
 	};
 
 	environment.systemPackages = with pkgs; [
+		bc
 		borgbackup
 		cachix
 		compsize
