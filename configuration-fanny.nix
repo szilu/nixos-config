@@ -27,7 +27,7 @@ in {
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
-		permittedInsecurePackages = [ "electron-24.8.6" ];
+		permittedInsecurePackages = [ "electron-25.9.0" ];
 	};
 
 	boot = {
@@ -46,7 +46,7 @@ in {
 
 	users.users.szilu = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "sudo" "docker" "vboxusers" ];
+		extraGroups = [ "wheel" "docker" "vboxusers" ];
 	};
 
 	time.timeZone = "Europe/Budapest";
@@ -74,9 +74,13 @@ in {
 	#in {
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
+		ffmpeg
+		glaxnimate
+		libsForQt5.kdenlive
 		nodePackages.pnpm
 		nodejs_20
 		nvidia-docker
+		zoom
 	];
 	#++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 

@@ -51,6 +51,7 @@
 		dash
 		dig
 		docker
+		dstat
 		ecryptfs
 		file
 		gcc
@@ -67,6 +68,7 @@
 		usbutils
 		vimPlugins.codeium-vim
 		wget
+		zip
 	];
 }
 

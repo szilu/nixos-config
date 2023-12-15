@@ -9,12 +9,12 @@
 	};
 	environment.systemPackages = with pkgs; [
 		brave
-		cura
+		#cura
 		darktable
 		evince
 		firefox-wayland
 		geeqie
-		gimp
+		gimp-with-plugins
 		hunspellDicts.hu_HU
 		inkscape
 		jre_minimal

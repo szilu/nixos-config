@@ -46,7 +46,7 @@ in {
 
 	users.users.szilu = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "sudo" "docker" "vboxusers" ];
+		extraGroups = [ "wheel" "docker" "vboxusers" ];
 	};
 
 	time.timeZone = "Europe/Budapest";
