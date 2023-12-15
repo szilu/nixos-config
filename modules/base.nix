@@ -61,6 +61,7 @@
 		neovim
 		nix-index
 		openssl
+		page
 		pciutils
 		unzip
 		usbutils
