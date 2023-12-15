@@ -27,7 +27,7 @@ in {
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
-		permittedInsecurePackages = [ "electron-24.8.6" ];
+		permittedInsecurePackages = [ "electron-25.9.0" ];
 	};
 
 	boot = {
