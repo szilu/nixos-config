@@ -27,6 +27,7 @@
 		thunderbird
 		transmission-remote-gtk
 		vlc
+		wezterm
 	];
 }
 
