@@ -74,6 +74,7 @@ in {
 	#in {
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
+		unstable.bun
 		ffmpeg
 		glaxnimate
 		libsForQt5.kdenlive

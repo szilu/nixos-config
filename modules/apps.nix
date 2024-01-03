@@ -22,7 +22,11 @@
 		kitty
 		libreoffice
 		logseq
+		maim
 		mpv
+		pavucontrol
+		pinsel
+		qscreenshot
 		skypeforlinux
 		thunderbird
 		transmission-remote-gtk
