@@ -15,6 +15,7 @@
 		firefox-wayland
 		geeqie
 		gimp-with-plugins
+		gnome.adwaita-icon-theme
 		hunspellDicts.hu_HU
 		inkscape
 		jre_minimal
@@ -27,6 +28,7 @@
 		pavucontrol
 		pinsel
 		qscreenshot
+		retext
 		skypeforlinux
 		thunderbird
 		transmission-remote-gtk
