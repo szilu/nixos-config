@@ -57,6 +57,7 @@
 		gcc
 		git
 		gparted
+		jq
 		killall
 		lm_sensors
 		neovim
