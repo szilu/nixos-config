@@ -16,6 +16,7 @@
 		geeqie
 		gimp-with-plugins
 		gnome.adwaita-icon-theme
+		go
 		hugo
 		hunspellDicts.hu_HU
 		inkscape
