@@ -10,6 +10,7 @@ in {
 		./hardware-configuration-fanny.nix
 		./modules/base.nix
 		./modules/i3.nix
+		#./modules/hyprland.nix
 		./modules/apps.nix
 		#./cachix.nix
 	];
@@ -46,7 +47,7 @@ in {
 
 	users.users.szilu = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "vboxusers" ];
+		extraGroups = [ "wheel" "docker" "vboxusers" "dialout" ];
 	};
 
 	time.timeZone = "Europe/Budapest";
@@ -54,8 +55,18 @@ in {
 	services = {
 		blueman.enable = true;
 		dbus.enable = true;
-		printing.enable = true;
 		rsyslogd.enable = true;
+
+		avahi = {
+			enable = true;
+			nssmdns = true;
+			openFirewall = true;
+		};
+
+		printing = {
+			enable = true;
+			drivers = [ pkgs.gutenprint ];
+		};
 
 		pipewire = {
 			enable = true;
