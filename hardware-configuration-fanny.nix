@@ -46,7 +46,7 @@
 				fsType = "vfat";
 			};
 		# NFS automount
-		"/nfs/nas" = { device = "nas.zev.szilu.symbion:/data";
+		"/nfs/nas" = { device = "nas.zoya.szilu.symbion:/data";
 				fsType = "nfs";
 				options = [ "x-systemd.automount" "x-systemd.idle-timeout=300" "noauto" ];
 			};
