@@ -65,6 +65,7 @@
 		openssl
 		page
 		pciutils
+		rename
 		unzip
 		usbutils
 		vimPlugins.codeium-vim
