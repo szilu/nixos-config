@@ -44,7 +44,7 @@
 		enable = true;
 		xwayland.enable = true;
 		#package = unstable.hyprland;
-		enableNvidiaPatches = if config.hardware.nvidia.nvidiaSettings then true else false;
+		#enableNvidiaPatches = if config.hardware.nvidia.nvidiaSettings then true else false;
 	};
 
 	environment.systemPackages = with pkgs; [

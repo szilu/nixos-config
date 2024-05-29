@@ -14,6 +14,7 @@
 		windowManager.i3 = {
 			enable = true;
 			extraPackages = with pkgs; [
+				brightnessctl
 				dunst
 				feh
 				i3status
@@ -36,6 +37,10 @@
 		# enabled = "ibus";
 		enabled = "fcitx5";
 		fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
+	};
+
+	programs.dconf = {
+		enable = true;
 	};
 
 	programs.thunar = {

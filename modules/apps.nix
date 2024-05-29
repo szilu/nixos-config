@@ -12,6 +12,7 @@
 		#cura
 		darktable
 		evince
+		ffmpeg
 		firefox-wayland
 		geeqie
 		gimp-with-plugins
