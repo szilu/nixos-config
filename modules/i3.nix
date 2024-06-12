@@ -1,16 +1,18 @@
 { config, pkgs, ...}:
 
 {
+	services.libinput.enable = true;
+
+	services.displayManager = {
+		# I3 config
+		sddm.enable = true;
+		autoLogin.enable = true;
+		autoLogin.user = "szilu";
+	};
+
 	services.xserver = {
 		enable = true;
-		libinput.enable = true;
 
-		# I3 config
-		displayManager = {
-			sddm.enable = true;
-			autoLogin.enable = true;
-			autoLogin.user = "szilu";
-		};
 		windowManager.i3 = {
 			enable = true;
 			extraPackages = with pkgs; [

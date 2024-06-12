@@ -8,6 +8,7 @@
 		teamviewer.enable = true;
 	};
 	environment.systemPackages = with pkgs; [
+		audacity
 		brave
 		#cura
 		darktable

@@ -1,10 +1,11 @@
 { config, lib, pkgs, ...}:
 
 {
-	services.xserver = {
-		enable = true;
-		libinput.enable = true;
-	};
+	services.libinput.enable = true;
+
+	#services.xserver = {
+	#	enable = true;
+	#};
 
 	xdg.portal = {
 		enable = true;

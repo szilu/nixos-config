@@ -41,7 +41,7 @@ in {
 
 	networking = {
 		networkmanager.enable = true;
-		firewall.allowedTCPPorts = [ 22 ];
+		firewall.allowedTCPPorts = [ 22 3000 8080 8081 ];
 		# firewall.allowedUDPPorts = [ ... ];
 	};
 
@@ -59,7 +59,7 @@ in {
 
 		avahi = {
 			enable = true;
-			nssmdns = true;
+			nssmdns4 = true;
 			openFirewall = true;
 		};
 
@@ -78,7 +78,7 @@ in {
 	};
 
 	virtualisation.docker.enableNvidia = true;
-	virtualisation.virtualbox.host.enable = true;
+	#virtualisation.virtualbox.host.enable = true;
 
 	#let
 	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
@@ -102,6 +102,7 @@ in {
 		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
 		font-awesome
 		google-fonts
+		android-studio
 	];
 
 	# Some programs need SUID wrappers, can be configured further or are
