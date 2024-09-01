@@ -70,6 +70,8 @@
 		usbutils
 		vimPlugins.codeium-vim
 		wget
+		xclip
+		xq-xml
 		zip
 	];
 }
