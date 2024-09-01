@@ -13,6 +13,7 @@
 	boot = {
         initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
         initrd.kernelModules = [ "dm-snapshot" ];
+		#kernelPackages = pkgs.linuxPackages_latest;
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
     };
@@ -77,6 +78,7 @@
 			#powerManagement.finegrained = true;
 			nvidiaSettings = true;
 		};
+		nvidia-container-toolkit.enable = true;
 		opengl = {
 			enable = true;
 			driSupport = true;

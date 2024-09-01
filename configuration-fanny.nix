@@ -28,12 +28,10 @@ in {
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
-		permittedInsecurePackages = [ "electron-25.9.0" ];
+		permittedInsecurePackages = [ "electron-27.3.11" ];
 	};
 
 	boot = {
-		kernelPackages = pkgs.linuxPackages_latest;
-
 		# Use the systemd-boot EFI boot loader.
 		loader.systemd-boot.enable = true;
 		loader.efi.canTouchEfiVariables = true;
@@ -43,6 +41,9 @@ in {
 		networkmanager.enable = true;
 		firewall.allowedTCPPorts = [ 22 3000 8080 8081 ];
 		# firewall.allowedUDPPorts = [ ... ];
+		hosts = {
+			"127.0.0.1" = [ "dev-portal.eeszt.gov.hu" ];
+		};
 	};
 
 	users.users.szilu = {
@@ -56,6 +57,7 @@ in {
 		blueman.enable = true;
 		dbus.enable = true;
 		rsyslogd.enable = true;
+		davfs2.enable = true;
 
 		avahi = {
 			enable = true;
@@ -75,9 +77,14 @@ in {
 			pulse.enable = true;
 			jack.enable = true;
 		};
+
+		pcscd = {
+			enable = true;
+			plugins = [ pkgs.pcsc-cyberjack ];
+		};
 	};
 
-	virtualisation.docker.enableNvidia = true;
+	#virtualisation.docker.enableNvidia = true;
 	#virtualisation.virtualbox.host.enable = true;
 
 	#let
