@@ -66,6 +66,7 @@
 		page
 		pciutils
 		rename
+		systemctl-tui
 		unzip
 		usbutils
 		vimPlugins.codeium-vim
