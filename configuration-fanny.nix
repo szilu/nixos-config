@@ -99,7 +99,7 @@ in {
 		nodePackages.pnpm
 		nodejs_20
 		nvidia-docker
-		zoom
+		zoom-us
 	];
 	#++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
