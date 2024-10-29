@@ -65,6 +65,7 @@
 		openssl
 		page
 		pciutils
+		rclone
 		rename
 		systemctl-tui
 		unzip

@@ -12,6 +12,7 @@
 		brave
 		#cura
 		darktable
+		deno
 		evince
 		ffmpeg
 		firefox-wayland
@@ -21,6 +22,7 @@
 		go
 		hugo
 		hunspellDicts.hu_HU
+		htop
 		inkscape
 		jre_minimal
 		kicad-small
@@ -38,6 +40,7 @@
 		transmission-remote-gtk
 		vlc
 		wezterm
+		zig
 	];
 }
 
