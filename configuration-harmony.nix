@@ -46,7 +46,7 @@ in {
 
 	users.users.szilu = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "vboxusers" ];
+		extraGroups = [ "wheel" "docker" "vboxusers" "dialout" ];
 	};
 
 	time.timeZone = "Europe/Budapest";
@@ -58,7 +58,7 @@ in {
 
 		avahi = {
 			enable = true;
-			nssmdns = true;
+			nssmdns4 = true;
 			openFirewall = true;
 		};
 
@@ -73,6 +73,12 @@ in {
 			alsa.support32Bit = true;
 			pulse.enable = true;
 			jack.enable = true;
+		};
+
+		pcscd = {
+			enable = true;
+			plugins = [ pkgs.pcsc-cyberjack ];
+			extraArgs = [ "--disable-polkit" ];
 		};
 	};
 
