@@ -4,7 +4,8 @@
 	services = {
 		locate = {
 			enable = true;
-			package = pkgs.mlocate;
+			#package = pkgs.mlocate;
+			package = pkgs.plocate;
 			localuser = null;
 		};
 
