@@ -27,6 +27,7 @@
 		jre_minimal
 		kicad-small
 		kitty
+		ksnip
 		libreoffice
 		logseq
 		maim
@@ -38,6 +39,7 @@
 		skypeforlinux
 		thunderbird
 		transmission-remote-gtk
+		turbovnc
 		vlc
 		wezterm
 		zig
