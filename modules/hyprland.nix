@@ -56,6 +56,7 @@
 		grim
 		libnotify
 		hyprpaper
+		hyprlandPlugins.hy3
 		networkmanager_dmenu
 		pamixer
 		polkit_gnome
