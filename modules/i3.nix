@@ -52,6 +52,7 @@
 
 	environment.systemPackages = with pkgs; [
 		blueman
+		ksnip
 		libnotify
 		pamixer
 		swaylock

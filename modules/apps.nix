@@ -27,7 +27,6 @@
 		jre_minimal
 		kicad-small
 		kitty
-		ksnip
 		libreoffice
 		logseq
 		maim

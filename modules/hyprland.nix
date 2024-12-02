@@ -53,10 +53,11 @@
 		brightnessctl
 		dmenu
 		dunst
+		flameshot
 		grim
-		libnotify
 		hyprpaper
 		hyprlandPlugins.hy3
+		libnotify
 		networkmanager_dmenu
 		pamixer
 		polkit_gnome
