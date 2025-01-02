@@ -53,7 +53,8 @@
 			};
 	};
 
-	swapDevices = [ ];
+	swapDevices = [{ device = "/var/lib/swap"; size = 16 * 1024; }];
+
 
 	# Enables DHCP on each ethernet and wireless interface. In case of scripted networking
 	# (the default) this is the recommended approach. When using systemd-networkd it's
@@ -73,17 +74,22 @@
 		};
 		nvidia = {
 			package = config.boot.kernelPackages.nvidiaPackages.stable;
+			open = true;
+			#open = false;
 			modesetting.enable = true;
 			powerManagement.enable = true;
 			#powerManagement.finegrained = true;
 			nvidiaSettings = true;
 		};
 		nvidia-container-toolkit.enable = true;
-		opengl = {
+		graphics = {
 			enable = true;
-			driSupport = true;
-			driSupport32Bit = true;
+			enable32Bit = true;
 		};
+		#opengl = {
+		#	enable = true;
+		#	driSupport32Bit = true;
+		#};
 	};
 	environment.sessionVariables = {
 		WLR_NO_HARDWARE_CURSORS = "1";

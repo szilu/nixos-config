@@ -12,15 +12,12 @@
 		brave
 		#cura
 		darktable
-		deno
 		evince
 		ffmpeg
 		firefox-wayland
 		geeqie
 		gimp-with-plugins
-		gnome.adwaita-icon-theme
-		go
-		hugo
+		adwaita-icon-theme
 		hunspellDicts.hu_HU
 		htop
 		inkscape
@@ -41,7 +38,6 @@
 		turbovnc
 		vlc
 		wezterm
-		zig
 	];
 }
 

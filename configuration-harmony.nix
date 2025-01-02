@@ -9,8 +9,9 @@ in {
 	imports = [
 		./hardware-configuration-harmony.nix
 		./modules/base.nix
-		./modules/hyprland.nix
 		./modules/apps.nix
+		./modules/dev.nix
+		./modules/hyprland.nix
 		#./cachix.nix
 	];
 

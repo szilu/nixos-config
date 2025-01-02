@@ -9,9 +9,10 @@ in {
 	imports = [
 		./hardware-configuration-fanny.nix
 		./modules/base.nix
-		./modules/i3.nix
-		#./modules/hyprland.nix
 		./modules/apps.nix
+		./modules/dev.nix
+		#./modules/i3.nix
+		./modules/hyprland.nix
 		#./cachix.nix
 	];
 
@@ -84,6 +85,8 @@ in {
 		};
 	};
 
+	services.greetd.settings.initial_session.user = "szilu";
+
 	#virtualisation.docker.enableNvidia = true;
 	#virtualisation.virtualbox.host.enable = true;
 
@@ -92,12 +95,12 @@ in {
 	#in {
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
+		android-studio
 		unstable.bun
 		ffmpeg
 		glaxnimate
 		libsForQt5.kdenlive
 		nodePackages.pnpm
-		nodejs_20
 		nvidia-docker
 		zoom-us
 	];
@@ -109,7 +112,6 @@ in {
 		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
 		font-awesome
 		google-fonts
-		android-studio
 	];
 
 	# Some programs need SUID wrappers, can be configured further or are

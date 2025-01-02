@@ -55,10 +55,7 @@
 		dstat
 		ecryptfs
 		file
-		gcc
-		git
 		gparted
-		jq
 		killall
 		lm_sensors
 		neovim
