@@ -96,7 +96,8 @@ in {
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
 		android-studio
-		unstable.bun
+		#unstable.bun
+		bun
 		ffmpeg
 		glaxnimate
 		libsForQt5.kdenlive
