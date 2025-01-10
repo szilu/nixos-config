@@ -37,6 +37,11 @@
 			viAlias = true;
 			vimAlias = true;
 		};
+
+		gnupg.agent = {
+			enable = true;
+			enableSSHSupport = true;
+		};
 	};
 
 	virtualisation.docker = {
@@ -56,6 +61,7 @@
 		ecryptfs
 		file
 		gparted
+		gnupg
 		killall
 		lm_sensors
 		neovim
