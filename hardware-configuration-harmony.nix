@@ -53,7 +53,7 @@
 			enable = true;
 			powerOnBoot = true;
 		};
-		opengl = {
+		graphics = {
 			enable = true;
 			#driSupport = true;
 		};
