@@ -16,6 +16,7 @@
 		ffmpeg
 		firefox-wayland
 		geeqie
+		ghostty
 		gimp-with-plugins
 		adwaita-icon-theme
 		hunspellDicts.hu_HU
@@ -33,6 +34,8 @@
 		qscreenshot
 		retext
 		skypeforlinux
+		sqlite
+		telegram-desktop
 		thunderbird
 		transmission-remote-gtk
 		turbovnc
