@@ -63,6 +63,7 @@
 		gparted
 		gnupg
 		killall
+		kopia
 		lm_sensors
 		neovim
 		nix-index
