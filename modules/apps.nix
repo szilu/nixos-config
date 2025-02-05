@@ -25,6 +25,7 @@
 		jre_minimal
 		kicad-small
 		kitty
+		lazysql
 		libreoffice
 		logseq
 		maim
