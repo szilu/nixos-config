@@ -3,35 +3,24 @@
 {
 	services.libinput.enable = true;
 
-	#services.xserver = {
-	#	enable = true;
-	#};
-
 	xdg.portal = {
 		enable = true;
 		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-		#extraPortals = [ unstable.xdg-desktop-portal-hyprland unstable.xdg-desktop-portal-gtk ];
-		#extraPortals = [ unstable.xdg-desktop-portal-gtk ];
-		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 	};
 
 	i18n.inputMethod = {
-		# enabled = "ibus";
-		#enabled = "fcitx5";
 		enable = true;
 		type = "fcitx5";
+		#type = "ibus";
 		fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
 	};
 
-	#services.greetd = lib.mkDefault {
 	services.greetd = {
 		enable = true;
 		settings = rec {
 			initial_session = {
-				#command = "${unstable.hyprland}/bin/Hyprland";
 				command = "${pkgs.hyprland}/bin/Hyprland";
-				#user = "szilu";
 			};
 			default_session = initial_session;
 		};
@@ -46,8 +35,6 @@
 	programs.hyprland = {
 		enable = true;
 		xwayland.enable = true;
-		#package = unstable.hyprland;
-		#enableNvidiaPatches = if config.hardware.nvidia.nvidiaSettings then true else false;
 	};
 
 	environment.systemPackages = with pkgs; [
