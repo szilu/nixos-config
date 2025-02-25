@@ -23,10 +23,10 @@
 		htop
 		inkscape
 		jre_minimal
-		kicad-small
 		kitty
 		lazysql
 		libreoffice
+		librewolf
 		logseq
 		maim
 		mpv
