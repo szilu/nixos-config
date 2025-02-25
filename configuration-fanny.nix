@@ -18,8 +18,6 @@ in {
 
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
-		#substituters = ["https://hyprland.cachix.org"];
-		#trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
 		auto-optimise-store = true;
 		#packageOverrides = pkgs: {
 		#	unstable = import <nixos-unstable> {
@@ -60,6 +58,8 @@ in {
 		rsyslogd.enable = true;
 		davfs2.enable = true;
 
+		greetd.settings.initial_session.user = "szilu";
+
 		avahi = {
 			enable = true;
 			nssmdns4 = true;
@@ -85,14 +85,6 @@ in {
 		};
 	};
 
-	services.greetd.settings.initial_session.user = "szilu";
-
-	#virtualisation.docker.enableNvidia = true;
-	#virtualisation.virtualbox.host.enable = true;
-
-	#let
-	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-	#in {
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
 		android-studio
@@ -100,6 +92,7 @@ in {
 		bun
 		ffmpeg
 		glaxnimate
+		kicad-small
 		libsForQt5.kdenlive
 		nodePackages.pnpm
 		nvidia-docker
