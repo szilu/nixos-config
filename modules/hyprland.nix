@@ -54,6 +54,7 @@
 		swaybg
 		swayidle
 		swaylock
+		swaynotificationcenter
 		waybar
 		wl-clipboard
 		wlogout
