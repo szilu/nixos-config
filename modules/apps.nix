@@ -34,7 +34,6 @@
 		pinsel
 		qscreenshot
 		retext
-		skypeforlinux
 		sqlite
 		telegram-desktop
 		thunderbird
