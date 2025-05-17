@@ -27,6 +27,10 @@
 		};
 	};
 
+	security = {
+		sudo-rs.enable = true;
+	};
+
 	programs = {
 		nix-ld.enable = true;
 		ecryptfs.enable = true;
@@ -75,6 +79,7 @@
 		systemctl-tui
 		unzip
 		usbutils
+		uutils-coreutils-noprefix
 		vimPlugins.codeium-vim
 		wget
 		xclip
