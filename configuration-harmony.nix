@@ -97,7 +97,9 @@ in {
 	fonts.fontDir.enable = true;
 	fonts.packages = with pkgs; [
 		liberation_ttf
-		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
+		#(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
+		pkgs.nerd-fonts.fira-code
+		pkgs.nerd-fonts.droid-sans-mono
 		font-awesome
 		google-fonts
 	];

@@ -4,9 +4,8 @@
 	services = {
 		locate = {
 			enable = true;
-			#package = pkgs.mlocate;
 			package = pkgs.plocate;
-			localuser = null;
+			#localuser = null;
 		};
 
 		openssh = {
@@ -61,7 +60,7 @@
 		dash
 		dig
 		docker
-		dstat
+		dool
 		ecryptfs
 		file
 		gparted
@@ -80,7 +79,8 @@
 		unzip
 		usbutils
 		uutils-coreutils-noprefix
-		vimPlugins.codeium-vim
+		#vimPlugins.codeium-vim
+		vimPlugins.windsurf-vim
 		wget
 		xclip
 		xq-xml

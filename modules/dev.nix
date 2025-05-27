@@ -5,6 +5,8 @@
 		cargo
 		cargo-espflash
 		cargo-generate
+		cargo-watch
+		clippy
 		deno
 		espup
 		espflash
@@ -15,8 +17,11 @@
 		hugo
 		jq
 		ldproxy
-		nodejs_22
+		nodejs
 		python3Minimal
+		rustc
+		rustfmt
+		rust-analyzer
 		xh
 		zig
 	];
