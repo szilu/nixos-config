@@ -2,9 +2,14 @@
 
 {
 	environment.systemPackages = with pkgs; [
-		cargo
+		#cargo
+		cargo-bloat
+		cargo-crev
+		cargo-geiger
 		cargo-espflash
 		cargo-generate
+		cargo-outdated
+		cargo-vet
 		cargo-watch
 		clippy
 		deno
@@ -19,9 +24,10 @@
 		ldproxy
 		nodejs
 		python3Minimal
-		rustc
-		rustfmt
-		rust-analyzer
+		#rustc
+		#rustfmt
+		rustup
+		#rust-analyzer
 		xh
 		zig
 	];

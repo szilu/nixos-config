@@ -62,6 +62,8 @@
 		docker
 		dool
 		ecryptfs
+		exfatprogs
+		fd
 		file
 		gparted
 		gnupg
@@ -75,6 +77,7 @@
 		pciutils
 		rclone
 		rename
+		ripgrep
 		systemctl-tui
 		unzip
 		usbutils

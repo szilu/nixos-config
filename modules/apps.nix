@@ -8,6 +8,7 @@
 		teamviewer.enable = true;
 	};
 	environment.systemPackages = with pkgs; [
+		adwaita-icon-theme
 		audacity
 		brave
 		#cura
@@ -17,8 +18,8 @@
 		firefox-wayland
 		geeqie
 		ghostty
-		gimp-with-plugins
-		adwaita-icon-theme
+		gimp3-with-plugins
+		graphicsmagick-imagemagick-compat
 		hunspellDicts.hu_HU
 		htop
 		inkscape
