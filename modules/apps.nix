@@ -35,7 +35,7 @@
 		pinsel
 		qscreenshot
 		retext
-		sqlite
+		sqlite-interactive
 		telegram-desktop
 		thunderbird
 		transmission-remote-gtk
