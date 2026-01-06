@@ -2,8 +2,8 @@
 	description = "NixOS configuration";
 
 	inputs = {
-		#nixpkgs.url = "nixpkgs/nixos-24.11";
-		nixpkgs.url = "nixpkgs/nixos-25.05";
+		#nixpkgs.url = "nixpkgs/nixos-25.05";
+		nixpkgs.url = "nixpkgs/nixos-25.11";
 	};
 
 	outputs = { self, nixpkgs }:

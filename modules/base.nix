@@ -55,6 +55,7 @@
 	environment.systemPackages = with pkgs; [
 		bc
 		borgbackup
+		brotli
 		cachix
 		compsize
 		dash
@@ -75,6 +76,7 @@
 		openssl
 		page
 		pciutils
+		psmisc
 		rclone
 		rename
 		ripgrep

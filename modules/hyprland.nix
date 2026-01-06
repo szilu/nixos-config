@@ -37,6 +37,12 @@
 		xwayland.enable = true;
 	};
 
+	#wayland.windowManager.hyprland = {
+	#	extraConfig = ''
+	#		plugin = ${hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
+	#	'';
+	#};
+
 	environment.systemPackages = with pkgs; [
 		blueman
 		brightnessctl
@@ -50,6 +56,7 @@
 		networkmanager_dmenu
 		pamixer
 		polkit_gnome
+		rose-pine-hyprcursor
 		slurp
 		swaybg
 		swayidle

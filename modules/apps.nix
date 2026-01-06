@@ -14,8 +14,8 @@
 		#cura
 		darktable
 		evince
-		ffmpeg
-		firefox-wayland
+		ffmpeg-full
+		firefox
 		geeqie
 		ghostty
 		gimp3-with-plugins
@@ -35,6 +35,7 @@
 		pinsel
 		qscreenshot
 		retext
+		slides
 		sqlite-interactive
 		telegram-desktop
 		thunderbird

@@ -2,17 +2,9 @@
 
 {
 	environment.systemPackages = with pkgs; [
-		#cargo
-		cargo-bloat
-		cargo-crev
-		cargo-geiger
-		cargo-espflash
-		cargo-generate
-		cargo-outdated
-		cargo-vet
-		cargo-watch
-		clippy
+		android-tools
 		deno
+		dive
 		espup
 		espflash
 		gcc
@@ -20,14 +12,12 @@
 		gnumake
 		go
 		hugo
+		jujutsu
 		jq
 		ldproxy
 		nodejs
 		python3Minimal
-		#rustc
-		#rustfmt
 		rustup
-		#rust-analyzer
 		xh
 		zig
 	];
