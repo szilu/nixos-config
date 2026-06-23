@@ -1,5 +1,28 @@
 { config, lib, pkgs, ...}:
 
+let
+	# Hyprland comes from nixpkgs (pkgs.hyprland, currently 0.55.3, cached).
+	#
+	# The hy3 plugin is the awkward part: upstream has only ever tagged hl0.55.0
+	# (built for Hyprland 0.55.0), and nixpkgs ships that hy3-0.55.0 even though
+	# its hyprland is 0.55.3. hy3 guards loading with an EXACT Hyprland-commit
+	# check (COMPOSITOR_HASH != CLIENT_HASH -> "target hyprland version
+	# mismatch"), so the 0.55.0 plugin refuses to load on the 0.55.3 compositor.
+	# No published hy3 matches 0.55.3 anywhere, so there is no clean matched pair
+	# to pin (flake or nixpkgs).
+	#
+	# hy3 compiles fine against the 0.55.3 headers (the plugin API is compatible
+	# across these patch releases) — only the commit guard rejects it. So build
+	# hy3 with HY3_NO_VERSION_CHECK defined (an `#ifndef` around the check in
+	# src/main.cpp) to drop the guard. Tiny source build of hy3 only; hyprland
+	# stays cached. Revisit / remove this override once upstream hy3 tags a
+	# release for the 0.55.x Hyprland we run.
+	hy3 = pkgs.hyprlandPlugins.hy3.overrideAttrs (prev: {
+		preConfigure = (prev.preConfigure or "") + ''
+			export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DHY3_NO_VERSION_CHECK"
+		'';
+	});
+in
 {
 	services.libinput.enable = true;
 
@@ -21,7 +44,7 @@
 	services.greetd = {
 		enable = true;
 		settings.default_session = {
-			command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.hyprland}/bin/start-hyprland";
+			command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${config.programs.hyprland.package}/bin/start-hyprland";
 			user = "greeter";
 		};
 	};
@@ -39,6 +62,8 @@
 	programs.hyprland = {
 		enable = true;
 		xwayland.enable = true;
+		# package / portalPackage left at their defaults: pkgs.hyprland and
+		# pkgs.xdg-desktop-portal-hyprland from nixos-26.05.
 	};
 
 	#wayland.windowManager.hyprland = {
@@ -55,7 +80,7 @@
 		flameshot
 		grim
 		hyprpaper
-		hyprlandPlugins.hy3
+		hy3
 		libnotify
 		networkmanager_dmenu
 		pamixer
