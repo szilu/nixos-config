@@ -16,19 +16,23 @@
 		fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
 	};
 
+	# Real login prompt (no autologin) so PAM can unlock the keyring with the
+	# password you type here. tuigreet remembers the last user; just type pw.
 	services.greetd = {
 		enable = true;
-		settings = rec {
-			initial_session = {
-				command = "${pkgs.hyprland}/bin/Hyprland";
-			};
-			default_session = initial_session;
+		settings.default_session = {
+			command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.hyprland}/bin/start-hyprland";
+			user = "greeter";
 		};
 	};
 
+	# Secret Service wallet used by Brave/Chromium, unlocked at login via PAM.
+	services.gnome.gnome-keyring.enable = true;
+	security.pam.services.greetd.enableGnomeKeyring = true;
+
 	programs.thunar = {
 		enable = true;
-		plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+		plugins = with pkgs; [ thunar-archive-plugin thunar-volman ];
 	};
 
 	programs.sway.enable = true;
