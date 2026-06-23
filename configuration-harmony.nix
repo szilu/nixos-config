@@ -71,7 +71,7 @@ in {
 		pipewire = {
 			enable = true;
 			alsa.enable = true;
-			alsa.support32Bit = true;
+			#alsa.support32Bit = true;
 			pulse.enable = true;
 			jack.enable = true;
 		};
@@ -83,15 +83,11 @@ in {
 		};
 	};
 
-	services.greetd.settings.initial_session.user = "szilu";
-
 	#let
 	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 	#in {
 	environment.systemPackages = with pkgs; [
-		nodePackages.pnpm
 		libnotify
-		nodejs_20
 	];
 
 	fonts.fontDir.enable = true;

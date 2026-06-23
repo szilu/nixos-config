@@ -27,7 +27,6 @@
 		kitty
 		lazysql
 		libreoffice
-		logseq
 		maim
 		mpv
 		p7zip
