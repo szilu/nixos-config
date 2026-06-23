@@ -32,7 +32,6 @@
 
 	programs = {
 		nix-ld.enable = true;
-		ecryptfs.enable = true;
 
 		neovim = {
 			enable = true;
@@ -45,6 +44,10 @@
 			enable = true;
 			enableSSHSupport = true;
 		};
+
+		ssh.extraConfig = ''
+			WarnWeakCrypto no-pq-kex
+		'';
 	};
 
 	virtualisation.docker = {
@@ -62,8 +65,8 @@
 		dig
 		docker
 		dool
-		ecryptfs
 		exfatprogs
+		gocryptfs
 		fd
 		file
 		gparted
