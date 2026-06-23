@@ -1,6 +1,26 @@
 { config, pkgs, ...}:
 
 {
+	# Keep the tuigreet greeter (greetd, tty1) from being clobbered by late
+	# service start-up noise. greetd runs on vt 1, and the kernel console plus
+	# systemd boot-status messages default to the foreground VT (also tty1), so
+	# docker bridge setup, TLP and powertop autotune print on top of the greeter
+	# a few seconds after it appears. `quiet` silences systemd's boot-status
+	# text; consoleLogLevel 3 keeps kernel printk below KERN_ERR off the console.
+	# Nothing is lost — it all still lands in the journal (journalctl -k -b).
+	boot = {
+		consoleLogLevel = 3;
+		kernelParams = [ "quiet" ];
+	};
+
+	# Trust wheel users so they can receive store paths pushed from another
+	# machine (`nix copy --to ssh://thishost ...`) without those paths needing a
+	# binary-cache signature. Lets you build on a fast host and push the closure
+	# to a slow one. NOTE: enabling this is itself a rebuild, so the first push to
+	# a host that doesn't have it yet must be done as root (root is always
+	# trusted); afterwards any wheel user can push.
+	nix.settings.trusted-users = [ "root" "@wheel" ];
+
 	services = {
 		locate = {
 			enable = true;
