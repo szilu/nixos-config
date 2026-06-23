@@ -27,17 +27,16 @@
 		kitty
 		lazysql
 		libreoffice
-		librewolf
 		logseq
 		maim
 		mpv
+		p7zip
 		pavucontrol
 		pinsel
 		qscreenshot
 		retext
 		slides
 		sqlite-interactive
-		telegram-desktop
 		thunderbird
 		transmission-remote-gtk
 		turbovnc
