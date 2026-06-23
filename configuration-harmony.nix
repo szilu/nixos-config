@@ -1,11 +1,6 @@
-{ config, pkgs, ... }: let
-	#unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-	flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-	#hyprland = (import flake-compat {
-	#	src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-	#}).defaultNix;
+{ config, pkgs, ... }:
 
-in {
+{
 	imports = [
 		./hardware-configuration-harmony.nix
 		./modules/base.nix
@@ -17,23 +12,13 @@ in {
 
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
-		#substituters = ["https://hyprland.cachix.org"];
-		#trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
 		auto-optimise-store = true;
-		#packageOverrides = pkgs: {
-		#	unstable = import <nixos-unstable> {
-		#		config = config.nixpkgs.config;
-		#	};
-		#};
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
-		permittedInsecurePackages = [ "electron-27.3.11" ];
 	};
 
 	boot = {
-		#kernelPackages = pkgs.linuxPackages_latest;
-
 		# Use the systemd-boot EFI boot loader.
 		loader.systemd-boot.enable = true;
 		loader.efi.canTouchEfiVariables = true;
@@ -83,9 +68,6 @@ in {
 		};
 	};
 
-	#let
-	#	unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-	#in {
 	environment.systemPackages = with pkgs; [
 		libnotify
 	];
@@ -93,20 +75,11 @@ in {
 	fonts.fontDir.enable = true;
 	fonts.packages = with pkgs; [
 		liberation_ttf
-		#(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
 		pkgs.nerd-fonts.fira-code
 		pkgs.nerd-fonts.droid-sans-mono
 		font-awesome
 		google-fonts
 	];
-
-	# Some programs need SUID wrappers, can be configured further or are
-	# started in user sessions.
-	# programs.mtr.enable = true;
-	# programs.gnupg.agent = {
-	#	 enable = true;
-	#	 enableSSHSupport = true;
-	# };
 
 	system.stateVersion = "23.05"; # Did you read the comment?
 }

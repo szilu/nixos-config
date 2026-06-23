@@ -1,11 +1,6 @@
-{ config, pkgs, ... }: let
-	#unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-	flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-	#hyprland = (import flake-compat {
-	#	src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-	#}).defaultNix;
+{ config, pkgs, ... }:
 
-in {
+{
 	imports = [
 		./hardware-configuration-fanny.nix
 		./modules/base.nix
@@ -19,11 +14,6 @@ in {
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
 		auto-optimise-store = true;
-		#packageOverrides = pkgs: {
-		#	unstable = import <nixos-unstable> {
-		#		config = config.nixpkgs.config;
-		#	};
-		#};
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
@@ -65,8 +55,6 @@ in {
 		rsyslogd.enable = true;
 		davfs2.enable = true;
 
-		#greetd.settings.initial_session.user = "szilu";
-
 		avahi = {
 			enable = true;
 			nssmdns4 = true;
@@ -99,35 +87,23 @@ in {
 	};
 
 	environment.systemPackages = with pkgs; [
-		#(blender.override { cudaSupport = true; })
 		android-studio
 		glaxnimate
 		kicad-small
 		kdePackages.kdenlive
-		nvidia-docker
 		obs-studio
 		telegram-desktop
 		zoom-us
 	];
-	#++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
 
 	fonts.fontDir.enable = true;
 	fonts.packages = with pkgs; [
 		liberation_ttf
-		#(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono"]; })
 		pkgs.nerd-fonts.fira-code
 		pkgs.nerd-fonts.droid-sans-mono
 		font-awesome
 		google-fonts
 	];
-
-	# Some programs need SUID wrappers, can be configured further or are
-	# started in user sessions.
-	# programs.mtr.enable = true;
-	# programs.gnupg.agent = {
-	#	 enable = true;
-	#	 enableSSHSupport = true;
-	# };
 
 	system.stateVersion = "23.05"; # Did you read the comment?
 }
