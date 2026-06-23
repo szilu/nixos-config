@@ -27,7 +27,7 @@ in {
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
-		permittedInsecurePackages = [ "electron-27.3.11" ];
+		permittedInsecurePackages = [ "electron-39.8.10" ];
 	};
 
 	boot = {
@@ -38,16 +38,24 @@ in {
 
 	networking = {
 		networkmanager.enable = true;
-		firewall.allowedTCPPorts = [ 22 3000 8080 8081 ];
+		firewall.allowedTCPPorts = [ 22 1080 1443 3000 8080 8081 ];
 		# firewall.allowedUDPPorts = [ ... ];
 		hosts = {
 			"127.0.0.1" = [ "dev-portal.eeszt.gov.hu" ];
+			#"37.220.130.131" = [ "docutron.naturland.hu" "delivetron.naturland.hu" "trondroid.naturland.hu" ];
+			"212.52.180.133" = [ "teszt2-portal.eeszt.gov.hu" "teszt2-www.eeszt.gov.hu" "teszt-mobil-if.eeszt.gov.hu" "teszt2-mobil-if.eeszt.gov.hu" ];
 		};
 	};
 
-	users.users.szilu = {
-		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "vboxusers" "dialout" ];
+	users.users = {
+		szilu = {
+			isNormalUser = true;
+			extraGroups = [ "wheel" "docker" "vboxusers" "dialout" ];
+		};
+		szilu-c = {
+			isNormalUser = true;
+			extraGroups = [ "docker" ];
+		};
 	};
 
 	time.timeZone = "Europe/Budapest";
@@ -58,7 +66,7 @@ in {
 		rsyslogd.enable = true;
 		davfs2.enable = true;
 
-		greetd.settings.initial_session.user = "szilu";
+		#greetd.settings.initial_session.user = "szilu";
 
 		avahi = {
 			enable = true;
@@ -83,19 +91,23 @@ in {
 			enable = true;
 			plugins = [ pkgs.pcsc-cyberjack ];
 		};
+
+		rabbitmq = {
+			enable = true;
+			plugins = [ "rabbitmq_event_exchange" ];
+			managementPlugin.enable = true;
+		};
 	};
 
 	environment.systemPackages = with pkgs; [
 		#(blender.override { cudaSupport = true; })
 		android-studio
-		#unstable.bun
-		bun
-		ffmpeg
 		glaxnimate
 		kicad-small
-		libsForQt5.kdenlive
-		nodePackages.pnpm
+		kdePackages.kdenlive
 		nvidia-docker
+		obs-studio
+		telegram-desktop
 		zoom-us
 	];
 	#++ (if config.networking.hostName == "fanny" then [(blender.override { cudaSupport = true; })] else [blender]);
