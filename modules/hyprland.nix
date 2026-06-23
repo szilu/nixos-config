@@ -29,13 +29,11 @@ in
 	xdg.portal = {
 		enable = true;
 		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-		#extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
 	};
 
 	i18n.inputMethod = {
 		enable = true;
 		type = "fcitx5";
-		#type = "ibus";
 		fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
 	};
 
@@ -65,12 +63,6 @@ in
 		# package / portalPackage left at their defaults: pkgs.hyprland and
 		# pkgs.xdg-desktop-portal-hyprland from nixos-26.05.
 	};
-
-	#wayland.windowManager.hyprland = {
-	#	extraConfig = ''
-	#		plugin = ${hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
-	#	'';
-	#};
 
 	environment.systemPackages = with pkgs; [
 		blueman

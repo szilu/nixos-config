@@ -42,7 +42,6 @@
 		poppler-utils
 		python3Minimal
 		rustc
-		#rustup
 		sccache
 		wkhtmltopdf
 		xh

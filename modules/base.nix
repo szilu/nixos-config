@@ -25,7 +25,6 @@
 		locate = {
 			enable = true;
 			package = pkgs.plocate;
-			#localuser = null;
 		};
 
 		openssh = {
@@ -107,7 +106,6 @@
 		unzip
 		usbutils
 		uutils-coreutils-noprefix
-		#vimPlugins.codeium-vim
 		vimPlugins.windsurf-vim
 		wget
 		xclip
