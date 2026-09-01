@@ -7,6 +7,7 @@
 		cargo-bloat
 		cargo-bump
 		cargo-cache
+		cargo-edit
 		cargo-features-manager
 		cargo-flamegraph
 		cargo-llvm-cov
@@ -22,6 +23,7 @@
 		cargo-watch
 		clang
 		clippy
+		codeql
 		deno
 		dive
 		espup
@@ -29,6 +31,7 @@
 		gcc
 		gdb
 		git
+		glow
 		gnumake
 		go
 		hugo
@@ -37,17 +40,21 @@
 		ldproxy
 		mold
 		nodejs
+		openssl.dev
 		pandoc
 		pnpm
 		poppler-utils
 		python3Minimal
 		rustc
+		rustfmt
 		sccache
+		semgrep
 		wkhtmltopdf
 		xh
 		xxd
 		zig
 	];
+	environment.variables.PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
 }
 
 # vim: ts=4
