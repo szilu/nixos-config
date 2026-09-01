@@ -22,6 +22,39 @@ let
 			export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DHY3_NO_VERSION_CHECK"
 		'';
 	});
+	# Brave keeps its passwords in the gnome-keyring wallet
+	# (--password-store=gnome-libsecret). Nothing unlocks that wallet under
+	# autologin, so do it here: prompt, unlock, verify. If it is still locked
+	# afterwards Brave is NOT started — otherwise it would silently fall back to
+	# storing passwords in plaintext (--password-store=basic).
+	# Check the lock probe by hand with:
+	#   busctl --user get-property org.freedesktop.secrets \
+	#     /org/freedesktop/secrets/collection/login \
+	#     org.freedesktop.Secret.Collection Locked
+	brave-unlock = pkgs.writeShellScriptBin "brave-unlock" ''
+		locked() {
+			[ "$(busctl --user get-property org.freedesktop.secrets \
+				/org/freedesktop/secrets/collection/login \
+				org.freedesktop.Secret.Collection Locked 2>/dev/null)" != "b false" ]
+		}
+
+		if locked; then
+			pw=$(wofi --dmenu --password --prompt "Unlock wallet") || exit 1
+			# The daemon is D-Bus activated, so it has no control socket
+			# ($XDG_RUNTIME_DIR/keyring is absent) and a plain --unlock just forks a
+			# second daemon that owns nothing. --replace takes over the Secret
+			# Service name and unlocks the login keyring with the stdin password.
+			printf '%s' "$pw" | gnome-keyring-daemon \
+				--replace --daemonize --unlock --components=secrets >/dev/null 2>&1
+		fi
+
+		if locked; then
+			notify-send -u critical "Wallet locked" "Brave not started."
+			exit 1
+		fi
+
+		exec brave --password-store=gnome-libsecret "$@"
+	'';
 in
 {
 	services.libinput.enable = true;
@@ -37,19 +70,20 @@ in
 		fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
 	};
 
-	# Real login prompt (no autologin) so PAM can unlock the keyring with the
-	# password you type here. tuigreet remembers the last user; just type pw.
+	# Autologin straight into Hyprland, no greeter. The user is per-host, set in
+	# configuration-<host>.nix as services.greetd.settings.initial_session.user.
+	# gnome-keyring is enabled in modules/apps.nix and its daemon is started by
+	# PAM here, but autologin gives PAM no password, so the wallet stays locked
+	# until brave-unlock (below) opens it.
 	services.greetd = {
 		enable = true;
-		settings.default_session = {
-			command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd ${config.programs.hyprland.package}/bin/start-hyprland";
-			user = "greeter";
+		settings = rec {
+			initial_session = {
+				command = "${config.programs.hyprland.package}/bin/start-hyprland";
+			};
+			default_session = initial_session;
 		};
 	};
-
-	# Secret Service wallet used by Brave/Chromium, unlocked at login via PAM.
-	services.gnome.gnome-keyring.enable = true;
-	security.pam.services.greetd.enableGnomeKeyring = true;
 
 	programs.thunar = {
 		enable = true;
@@ -66,6 +100,7 @@ in
 
 	environment.systemPackages = with pkgs; [
 		blueman
+		brave-unlock
 		brightnessctl
 		dmenu
 		dunst

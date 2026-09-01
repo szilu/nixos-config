@@ -68,6 +68,9 @@
 		};
 	};
 
+	# Autologin user for greetd (modules/hyprland.nix starts Hyprland directly).
+	services.greetd.settings.initial_session.user = "szilu";
+
 	environment.systemPackages = with pkgs; [
 		libnotify
 	];

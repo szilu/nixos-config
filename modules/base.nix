@@ -1,13 +1,11 @@
 { config, pkgs, ...}:
 
 {
-	# Keep the tuigreet greeter (greetd, tty1) from being clobbered by late
-	# service start-up noise. greetd runs on vt 1, and the kernel console plus
-	# systemd boot-status messages default to the foreground VT (also tty1), so
-	# docker bridge setup, TLP and powertop autotune print on top of the greeter
-	# a few seconds after it appears. `quiet` silences systemd's boot-status
-	# text; consoleLogLevel 3 keeps kernel printk below KERN_ERR off the console.
-	# Nothing is lost — it all still lands in the journal (journalctl -k -b).
+	# Quiet boot: `quiet` silences systemd's boot-status text, consoleLogLevel 3
+	# keeps kernel printk below KERN_ERR off the console, so late start-up noise
+	# (docker bridge setup, TLP, powertop autotune) does not paint over tty1
+	# while greetd is starting the session. Nothing is lost — it all still lands
+	# in the journal (journalctl -k -b).
 	boot = {
 		consoleLogLevel = 3;
 		kernelParams = [ "quiet" ];

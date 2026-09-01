@@ -17,16 +17,23 @@
 	};
 	nixpkgs.config = {
 		allowUnfree = true;
+		#android_sdk.accept_license = true;
 	};
 
 	boot = {
 		# Use the systemd-boot EFI boot loader.
 		loader.systemd-boot.enable = true;
 		loader.efi.canTouchEfiVariables = true;
+		# Intel AX200: disable driver power-saving (erratic throughput) — see plan
+		extraModprobeConfig = ''
+			options iwlmvm power_scheme=1
+			options iwlwifi power_save=0
+		'';
 	};
 
 	networking = {
 		networkmanager.enable = true;
+		networkmanager.wifi.powersave = false;
 		firewall.allowedTCPPorts = [ 22 1080 1443 3000 8080 8081 ];
 		# firewall.allowedUDPPorts = [ ... ];
 		hosts = {
@@ -46,6 +53,16 @@
 			extraGroups = [ "docker" ];
 		};
 	};
+
+	security.sudo-rs.extraRules = [
+		{
+			users = [ "szilu" ];
+			runAs = "szilu-c";
+			commands = [
+				{ command = "ALL"; options = [ "NOPASSWD" "SETENV" ]; }
+			];
+		}
+	];
 
 	time.timeZone = "Europe/Budapest";
 
@@ -86,8 +103,12 @@
 		};
 	};
 
+	# Autologin user for greetd (modules/hyprland.nix starts Hyprland directly).
+	services.greetd.settings.initial_session.user = "szilu";
+
 	environment.systemPackages = with pkgs; [
-		android-studio
+		#android-studio
+		#androidsdk
 		glaxnimate
 		kicad-small
 		kdePackages.kdenlive
