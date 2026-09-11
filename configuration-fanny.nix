@@ -23,6 +23,8 @@
 	boot = {
 		# Use the systemd-boot EFI boot loader.
 		loader.systemd-boot.enable = true;
+		# /boot is 512M; each generation costs ~40M of kernel+initrd
+		loader.systemd-boot.configurationLimit = 5;
 		loader.efi.canTouchEfiVariables = true;
 		# Intel AX200: disable driver power-saving (erratic throughput) — see plan
 		extraModprobeConfig = ''
