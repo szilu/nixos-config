@@ -23,7 +23,6 @@
 		cargo-watch
 		clang
 		clippy
-		codeql
 		deno
 		dive
 		espup
@@ -42,6 +41,7 @@
 		nodejs
 		openssl.dev
 		pandoc
+		pkgconfig
 		pnpm
 		poppler-utils
 		python3Minimal
