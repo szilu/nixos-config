@@ -53,6 +53,7 @@
 		szilu-c = {
 			isNormalUser = true;
 			extraGroups = [ "docker" ];
+			homeMode = "755";
 		};
 	};
 
