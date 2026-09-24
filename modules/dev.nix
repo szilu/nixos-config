@@ -41,7 +41,7 @@
 		nodejs
 		openssl.dev
 		pandoc
-		pkgconfig
+		pkg-config
 		pnpm
 		poppler-utils
 		python3Minimal
