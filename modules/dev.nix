@@ -7,6 +7,8 @@
 		cargo-bloat
 		cargo-bump
 		cargo-cache
+		cargo-cyclonedx
+		cargo-deny
 		cargo-edit
 		cargo-features-manager
 		cargo-flamegraph
@@ -14,21 +16,24 @@
 		cargo-lock
 		cargo-outdated
 		cargo-profiler
-		cargo-release
 		cargo-seek
 		cargo-sweep
 		cargo-udeps
 		cargo-ui
 		cargo-update
+		cargo-vet
 		cargo-watch
 		clang
 		clippy
+		cosign
+		cyclonedx-cli
 		deno
 		dive
 		espup
 		espflash
 		gcc
 		gdb
+		gh
 		git
 		glow
 		gnumake
@@ -49,6 +54,7 @@
 		rustfmt
 		sccache
 		semgrep
+		syft
 		wkhtmltopdf
 		xh
 		xxd
