@@ -1,13 +1,33 @@
 {
   "nodes": {
+    "brave": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794014811,
+        "narHash": "sha256-1kahbxlsma1KNavOrhBjgRnyzieWTwlij7DkkfDVxEQ=",
+        "ref": "main",
+        "rev": "35bfbc3349e6145f9b4cc840b8c0ced7121c55a2",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://codeberg.org/buckley310/brave-browser-nix"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://codeberg.org/buckley310/brave-browser-nix"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1782116945,
-        "narHash": "sha256-G3tw/IXmaH6IQ2upZvhuN9sG8CkuX+BLuJDpE8hz0Ds=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "34268251cf5547d39063f2c5ea9a196246f7f3a6",
-        "type": "github"
+        "lastModified": 1787848966,
+        "narHash": "sha256-pbm8BrmtI4lOXt2syJ3FP12LjybYuiTdUO0GQrbQMk0=",
+        "rev": "d57af924f160a5084293c71c2043f058bd1cdb60",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.8538.d57af924f160/nixexprs.tar.xz"
       },
       "original": {
         "id": "nixpkgs",
@@ -17,6 +37,7 @@
     },
     "root": {
       "inputs": {
+        "brave": "brave",
         "nixpkgs": "nixpkgs"
       }
     }

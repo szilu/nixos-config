@@ -13,19 +13,25 @@
 		# sync; bumping it advances both together. (Dedicated hyprwm/hy3 flake
 		# inputs were dropped — they dragged in a second nixpkgs and forced
 		# from-source builds for no benefit.)
+
+		# Brave was removed from nixpkgs. The module's overlay provides pkgs.brave.
+		brave = {
+			url = "git+https://codeberg.org/buckley310/brave-browser-nix?ref=main";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = { self, nixpkgs, ... }:
+	outputs = { self, nixpkgs, brave, ... }:
 		let
 			system = "x86_64-linux";
 		in {
 			nixosConfigurations.fanny = nixpkgs.lib.nixosSystem {
 				inherit system;
-				modules = [ ./configuration-fanny.nix ];
+				modules = [ brave.nixosModules.default ./configuration-fanny.nix ];
 			};
 			nixosConfigurations.harmony = nixpkgs.lib.nixosSystem {
 				inherit system;
-				modules = [ ./configuration-harmony.nix ];
+				modules = [ brave.nixosModules.default ./configuration-harmony.nix ];
 			};
 		};
 }
